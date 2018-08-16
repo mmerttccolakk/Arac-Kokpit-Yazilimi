@@ -1,0 +1,69 @@
+//pin tanımlamaları
+#define sag 2
+#define sol 3
+#define on_far 4
+#define dortlu 5
+#define silecek 6
+#define sag_cikis 8
+#define sol_cikis 7
+#define on_far_cikis 9
+#define silecek_cikis 10
+
+//durumlar
+boolean durum= HIGH;
+
+//sinyal hızı
+int sure = 500;
+
+//zaman ayarlari
+unsigned long gecmis_zaman;
+
+void setup() {
+    pinMode(sag, INPUT);
+    pinMode(sol, INPUT);
+    pinMode(on_far, INPUT);
+    pinMode(dortlu, INPUT);
+    pinMode(silecek, INPUT);
+    pinMode(sag_cikis, OUTPUT);
+    pinMode(sol_cikis, OUTPUT);
+    pinMode(on_far_cikis, OUTPUT);
+    pinMode(silecek_cikis, OUTPUT);
+}
+
+void loop() {
+  //simdiki zaman
+  unsigned long zaman = millis();
+    if(digitalRead(sag)==HIGH){
+      if((gecmis_zaman+sure)<=zaman){
+          durum =!durum;
+          digitalWrite(sag_cikis,durum);
+          gecmis_zaman=zaman; 
+          digitalWrite(sol_cikis,LOW);
+        }
+      }else if(digitalRead(sol)==HIGH){
+          if((gecmis_zaman+sure)<=zaman){
+            durum =!durum;
+            digitalWrite(sol_cikis,durum);
+            digitalWrite(sag_cikis,LOW);
+            gecmis_zaman=zaman; 
+          }
+        }else if(digitalRead(dortlu)==HIGH){
+          if((gecmis_zaman+sure)<=zaman){
+            durum =!durum;
+            digitalWrite(on_far_cikis,durum);
+            gecmis_zaman=zaman; 
+          }}
+           if(digitalRead(on_far)==HIGH){
+          digitalWrite(on_far_cikis,HIGH);
+          }else{
+            digitalWrite(on_far_cikis,LOW);
+            }
+         if(digitalRead(silecek)==HIGH){
+          digitalWrite(silecek_cikis,HIGH);
+          }else{
+            digitalWrite(silecek_cikis,LOW);
+            }
+          
+         
+
+}
